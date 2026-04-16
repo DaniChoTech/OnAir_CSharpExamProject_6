@@ -29,6 +29,12 @@ namespace PyongWork
                 Console.WriteLine($"{this.Name}가 {this.Atk}만큼 공격해서" +
                     $" {targetMonster.Name}이 {targetMonster.Hp}만큼 남았다");
             }
+
+            public bool IsRealDead()
+            {
+                bool isPlayerDead = (this.Hp <= 0);
+                return isPlayerDead;
+            }
         }
 
 
@@ -78,6 +84,8 @@ namespace PyongWork
             {
                 Console.WriteLine("...계단이 나왔다 더 들어갈 것인가! 내려간다 1, 퇴장한다 2");
                 string repeatKey = Console.ReadLine();
+
+                _isGameOver = player.IsRealDead();
 
 
                 if (repeatKey == "1") {
