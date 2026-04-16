@@ -10,6 +10,7 @@ namespace PyongWork
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
