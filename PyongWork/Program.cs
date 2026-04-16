@@ -13,16 +13,21 @@ namespace PyongWork
         public class PugPlayer
         {
             public string Name { get; private set; }
-            public int Hp { get; private set; }
+            public int Hp { get; set; }
+            public int Atk { get; private set; }
 
-            public void InitPugPlayer(string name, int hp)
+            public void InitPugPlayer(string name, int hp, int atk)
             {
                 this.Name = name;
                 this.Hp = hp;
+                this.Atk = atk;
             }
 
-            public void AttackMonster()
+            public void AttackMonster(Monster targetMonster)
             {
+                targetMonster.Hp -= this.Atk;
+                Console.WriteLine($"{this.Name}가 {this.Atk}만큼 공격해서" +
+                    $" {targetMonster.Name}이 {targetMonster.Hp}만큼 남았다");
             }
         }
 
@@ -30,16 +35,21 @@ namespace PyongWork
         public class Monster
         {
             public string Name { get; private set; }
-            public int Hp { get; private set; }
+            public int Hp { get; set; }
+            public int Atk { get; private set; }
 
-            public void InitMonster(string name, int hp)
+            public void InitMonster(string name, int hp, int atk)
             {
                 this.Name = name;
                 this.Hp = hp;
+                this.Atk = atk;
             }
 
-            public void AttackPlayer()
+            public void AttackPlayer(PugPlayer targetPlayer)
             {
+                targetPlayer.Hp -= this.Atk;
+                Console.WriteLine($"{this.Name}가 {this.Atk}만큼 공격해서" +
+                    $" {targetPlayer.Name}이 {targetPlayer.Hp}만큼 남았다");
             }
         }
 
@@ -56,11 +66,11 @@ namespace PyongWork
             }
 
             PugPlayer player = new PugPlayer();
-            player.InitPugPlayer("퍼그용사", 100);
+            player.InitPugPlayer("퍼그용사", 100, 150);
             Console.WriteLine($"{player.Name}가 입장했다!");
 
             Monster mob103 = new Monster();
-            mob103.InitMonster("슬라임", 300);
+            mob103.InitMonster("슬라임", 300, 10);
 
 
 
@@ -71,7 +81,8 @@ namespace PyongWork
 
 
                 if (repeatKey == "1") {
-
+                    player.AttackMonster(mob103);
+                    mob103.AttackPlayer(player);
                 } 
                 else if (repeatKey == "2") { 
                     
