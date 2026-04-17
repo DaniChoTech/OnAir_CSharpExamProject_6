@@ -32,17 +32,18 @@ namespace PyongWork
                 this.Hp = hp;
                 this.Atk = atk;
             }
+
+            public void AttackTargetUnit(GameUnitBase targetUnit)
+            {
+                targetUnit.Hp -= this.Atk;
+                Console.WriteLine($"{this.Name}가 {this.Atk}만큼 공격해서" +
+                    $" {targetUnit.Name}이 {targetUnit.Hp}만큼 남았다");
+            }
+
         }
 
         public class PugPlayer : GameUnitBase
         {
-            public void AttackMonster(Monster targetMonster)
-            {
-                targetMonster.Hp -= this.Atk;
-                Console.WriteLine($"{this.Name}가 {this.Atk}만큼 공격해서" +
-                    $" {targetMonster.Name}이 {targetMonster.Hp}만큼 남았다");
-            }
-
             public bool IsRealDead()
             {
                 bool isPlayerDead = (this.Hp <= 0);
@@ -52,12 +53,6 @@ namespace PyongWork
 
         public class Monster : GameUnitBase
         {
-            public void AttackPlayer(PugPlayer targetPlayer)
-            {
-                targetPlayer.Hp -= this.Atk;
-                Console.WriteLine($"{this.Name}가 {this.Atk}만큼 공격해서" +
-                    $" {targetPlayer.Name}이 {targetPlayer.Hp}만큼 남았다");
-            }
         }
 
 
@@ -108,8 +103,8 @@ namespace PyongWork
 
 
                 if (repeatKey == "1") {
-                    player.AttackMonster(mob103);
-                    mob103.AttackPlayer(player);
+                    player.AttackTargetUnit(mob103);
+                    mob103.AttackTargetUnit(player);
                 } 
                 else if (repeatKey == "2") { 
                     
