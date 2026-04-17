@@ -10,19 +10,22 @@ namespace PyongWork
     {
         static bool _isGameOver = false;
 
-        public class PugPlayer
+        public class GameUnitBase
         {
             public string Name { get; private set; }
             public int Hp { get; set; }
             public int Atk { get; private set; }
 
-            public void InitPugPlayer(string name, int hp, int atk)
+            public void InitGameUnit(string name, int hp, int atk)
             {
                 this.Name = name;
                 this.Hp = hp;
                 this.Atk = atk;
             }
+        }
 
+        public class PugPlayer : GameUnitBase
+        {
             public void AttackMonster(Monster targetMonster)
             {
                 targetMonster.Hp -= this.Atk;
@@ -38,19 +41,8 @@ namespace PyongWork
         }
 
 
-        public class Monster
+        public class Monster : GameUnitBase
         {
-            public string Name { get; private set; }
-            public int Hp { get; set; }
-            public int Atk { get; private set; }
-
-            public void InitMonster(string name, int hp, int atk)
-            {
-                this.Name = name;
-                this.Hp = hp;
-                this.Atk = atk;
-            }
-
             public void AttackPlayer(PugPlayer targetPlayer)
             {
                 targetPlayer.Hp -= this.Atk;
@@ -72,11 +64,11 @@ namespace PyongWork
             }
 
             PugPlayer player = new PugPlayer();
-            player.InitPugPlayer("퍼그용사", 100, 150);
+            player.InitGameUnit("퍼그용사", 100, 150);
             Console.WriteLine($"{player.Name}가 입장했다!");
 
             Monster mob103 = new Monster();
-            mob103.InitMonster("슬라임", 300, 10);
+            mob103.InitGameUnit("슬라임", 300, 10);
 
 
 
