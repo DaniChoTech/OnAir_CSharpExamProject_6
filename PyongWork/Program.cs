@@ -50,7 +50,6 @@ namespace PyongWork
             }
         }
 
-
         public class Monster : GameUnitBase
         {
             public void AttackPlayer(PugPlayer targetPlayer)
@@ -64,6 +63,10 @@ namespace PyongWork
 
         static void Main(string[] args)
         {
+            // IGameUnit 인터페이스로도 보관 가능
+            List<GameUnitBase> monsterInstanceList = new List<GameUnitBase>();
+
+
             Console.WriteLine("던전에 진입했다...두두둥 더 들어가시겠습니까? 안전은 보장할 수 없습니다 입장 : 1, 퇴장 : 2");
             string startKey = Console.ReadLine();
 
@@ -80,7 +83,21 @@ namespace PyongWork
             Monster mob103 = new Monster();
             mob103.InitGameUnit("슬라임", 300, 10);
 
+            Monster mob777 = new Monster();
+            mob777.InitGameUnit("유니콘", 1500, 10);
 
+            Monster mob909 = new Monster();
+            mob909.InitGameUnit("드래곤", 20, 10);
+
+            // 생명체를 자료구조인 리스트에 보관
+            monsterInstanceList.Add(mob103);
+            monsterInstanceList.Add(mob777);
+            monsterInstanceList.Add(mob909);
+
+            // Foreach문에서 이름을 한개씩 출력
+            foreach (var mobInstance in monsterInstanceList) { 
+                Console.WriteLine($"{mobInstance.Name}");
+            }
 
             while (_isGameOver == false) 
             {
