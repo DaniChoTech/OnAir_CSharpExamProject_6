@@ -10,11 +10,21 @@ namespace PyongWork
     {
         static bool _isGameOver = false;
 
-        public class GameUnitBase
+        public interface IGameUnit
         {
-            public string Name { get; private set; }
+            // set은 왜 없어야하냐면, 익명 멤버변수를 만드는데
+            // 이걸 인터페이스는 허용하지 않음 -> 인터페이스는 기능만 있어야해서
+            string Name { get; }
+            int Hp { get; }
+            int Atk { get; }
+        }
+
+        public class GameUnitBase : IGameUnit
+        {
+            // 자식 클래스에서 쓸 수 있도록 protected set
+            public string Name { get; protected set; }
             public int Hp { get; set; }
-            public int Atk { get; private set; }
+            public int Atk { get; set; }
 
             public void InitGameUnit(string name, int hp, int atk)
             {
